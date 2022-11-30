@@ -1,0 +1,55 @@
+// Center block
+@mixin center-block {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+// Column width with margin
+@mixin column-width($numberColumns: 3) {
+	width: map-get($columns, $numberColumns) - ( ( $columns__margin * ( $numberColumns - 1 ) ) / $numberColumns );
+}
+
+/// Limita a quantidade de linhas exibidas
+/// @param $lines: Número de linhas
+@mixin limits_number_of_lines($lines) {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $lines;
+    visibility: visible;
+}
+
+/// Insere background e trata tamanho do icone de video
+@mixin icon-video-in-content-60x() {
+    .cont-video-content {
+        background-color: $prim-color-2;
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        top: 0;
+        border-bottom-right-radius: 8px;
+
+        .video-content {
+            width: 40px;
+            margin: 8px 10px;
+        }
+    }
+}
+
+/// Insere background e trata tamanho do icone de video
+@mixin icon-video-in-content-40x() {
+    .cont-video-content {
+        background-color: $prim-color-2;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        top: 0;
+        border-bottom-right-radius: 8px;
+
+        .video-content {
+            width: 25px;
+            margin: 6px 8px;
+        }
+    }
+}

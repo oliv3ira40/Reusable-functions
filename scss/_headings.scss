@@ -1,0 +1,26 @@
+h1,
+.h1 { font-size: responsive-size(42px, 46px); }
+
+h2, .h2 { font-size: responsive-size(34px, 40px); }
+
+h3, .h3 { font-size: responsive-size(28px, 32px); }
+
+h4, .h4 { font-size: responsive-size(22px, 26px); }
+
+h5, .h5 { font-size: responsive-size(16px, 20px); }
+
+h6, .h6 { font-size: responsive-size(10px, 14px); }
+
+section.card-text {
+	h1, .h1 { font-size: responsive-size(34px, 38px); }
+
+	h2, .h2 { font-size: responsive-size(28px, 32px); }
+	
+	h3, .h3 { font-size: responsive-size(22px, 26px); }
+	
+	h4, .h4 { font-size: responsive-size(18px, 20px); }
+	
+	h5, .h5 { font-size: responsive-size(12px, 16px); }
+	
+	h6, .h6 { font-size: responsive-size(6px, 10px); }
+}

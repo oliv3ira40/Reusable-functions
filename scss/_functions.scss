@@ -1,0 +1,86 @@
+/// Função que gera tamanho de fonte responsivo
+/// @param $value: valor seguido da unidade (Ex.: 16px)
+/// @output somente o número, sem a unidade (Ex.: 16)
+@function strip-unit($value) {
+    @return $value / ($value * 0 + 1);
+}
+
+/// Função que gera tamanho de fonte responsivo
+/// @param $min-size: Menor fonte possível quando atingir o menor viewport definido ($min-view)
+/// @param $max-size: Maior fonte possível quando atingir o maior viewport definido ($max-view)
+/// @param $min-view: Menor viewport para a responsividade da fonte. Valores abaixo disso, manterão o menor valor da fonte.
+/// @param $max-view: Maior viewport para a responsividade da fonte. Valores acima disso, manterão o maior valor da fonte.
+/// @output valor para ser utilizado como font-size
+@function responsive-size($min-size, $max-size, $min-view: 576px, $max-view: 1200px) {
+    $min-size-rem: 0rem;
+    $max-size-rem: 0rem;
+    $min-size-px: 0px;
+    $max-size-px: 0px;
+
+    @if unit($min-view) != 'px' or unit($max-view) != 'px' {
+        @error "Viewport MUST be in PX unit";
+        @return "";
+    }
+
+    @if unit($min-size) != 'px' and unit($max-size) != 'px' and unit($min-size) != 'rem' and unit($max-size) != 'rem' {
+        @error "Font size MUST be in PX or REM units";
+        @return "";
+    }
+
+    @if unit($min-size) == 'px' {
+        $min-size-rem: (strip-unit($min-size) / 16) + 0rem;
+        $min-size-px: $min-size;
+    }
+
+    @if unit($max-size) == 'px' {
+        $max-size-rem: (strip-unit($max-size) / 16) + 0rem;
+        $max-size-px: $max-size;
+    }
+
+    @if unit($min-size) == 'rem' {
+        $min-size-px: (strip-unit($min-size) * 16) + 0px;
+        $min-size-rem: $min-size;
+    }
+
+    @if unit($max-size) == 'rem' {
+        $max-size-px: (strip-unit($max-size) * 16) + 0px;
+        $max-size-rem: $max-size;
+    }
+
+    $x: $min-size-rem;
+    $y: $min-view/100;
+    $z: 100 * ($max-size-px - $min-size-px) / ($max-view - $min-view);
+
+    @return clamp(#{$min-size}, calc(#{$x} + ((1vw - #{$y}) * #{$z})), #{$max-size});
+}
+
+/// Função que mantem as proporções das imagens
+/// @param $width: Valor em pixel ou a proporção de tamanho desejada
+/// @param $height: Valor em pixel ou a proporção de largura desejada
+@mixin aspect-ratio($width, $height) {
+    position: relative;
+    display: block;
+
+    &:before {
+      display: block;
+      content: "";
+      width: 100%;
+      padding-top: ($height / $width) * 100%;
+    }
+    
+    > a, img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+}
+
+/// Remove acão de click da tag "<a>" caso o link seja igual a "#"
+@mixin no-link() {
+    &[href="#"] {
+        pointer-events: none;
+        cursor: default;
+    }
+}

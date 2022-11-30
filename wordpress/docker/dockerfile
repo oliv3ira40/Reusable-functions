@@ -1,0 +1,5 @@
+FROM wordpress:php8.0-apache
+
+COPY config/php.ini /usr/local/etc/php/
+
+RUN docker-php-ext-install calendar
